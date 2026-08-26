@@ -20,10 +20,15 @@ export default {
       },
     },
     extend: {
+      colors: {
+        danger: "#FF4542",
+        "danger-red": "#FF4542",
+      },
       fontFamily: {
         urbanist: ["Urbanist", "sans-serif"],
         syne: ["Syne", "sans-serif"],
         bebas: ["Bebas Neue", "sans-serif"],
+        inter: ["Inter", "sans-serif"],
       },
     },
   },

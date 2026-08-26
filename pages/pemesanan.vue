@@ -9,44 +9,47 @@
 
     <!-- Main Container -->
     <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
-      <!-- Main Layout Grid (2 Columns Desktop: Left Form / Right Summary) -->
+      <!-- Main Content Container with ClientOnly -->
       <ClientOnly>
-        <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,2fr)_minmax(340px,1fr)] gap-6 lg:gap-8 items-start mb-16">
+        <!-- Breadcrumb -->
+        <nav class="flex items-center space-x-1.5 text-xs sm:text-sm font-medium text-gray-500 mb-6" aria-label="Breadcrumb">
+          <NuxtLink :to="localePath('/')" class="hover:text-yellow-600 transition-colors text-gray-500 font-medium">
+            Beranda
+          </NuxtLink>
+          <span class="text-gray-400 font-medium">&gt;</span>
 
+          <!-- Conditional Detail Produk link if coming with product context -->
+          <template v-if="breadcrumbProduct">
+            <NuxtLink :to="localePath(`/product/${breadcrumbProductId}`)" class="hover:text-yellow-600 transition-colors text-gray-500 font-medium">
+              Detail Produk
+            </NuxtLink>
+            <span class="text-gray-400 font-medium">&gt;</span>
+            <NuxtLink :to="localePath(`/product/${breadcrumbProductId}`)" class="hover:text-yellow-600 transition-colors text-gray-500 font-medium">
+              {{ breadcrumbProduct }}
+            </NuxtLink>
+            <span class="text-gray-400 font-medium">&gt;</span>
+          </template>
+
+          <NuxtLink :to="localePath({ path: '/keranjang', query: route.query })" class="hover:text-yellow-600 transition-colors text-gray-500 font-medium">
+            Keranjang
+          </NuxtLink>
+          <span class="text-gray-400 font-medium">&gt;</span>
+
+          <span class="font-bold text-gray-900">Pemesanan</span>
+        </nav>
+
+        <!-- Loading Skeleton State -->
+        <CheckoutSkeleton v-if="pending" />
+
+        <!-- Loaded Content State -->
+        <div v-else class="grid grid-cols-1 lg:grid-cols-[minmax(0,2fr)_minmax(340px,1fr)] gap-6 lg:gap-8 items-start mb-16">
           <!-- Left Column: Shipping & Contact Form -->
           <div class="space-y-6 sm:space-y-8">
-
-            <!-- Breadcrumb -->
-            <nav class="flex items-center space-x-1.5 text-xs sm:text-sm font-medium text-gray-500" aria-label="Breadcrumb">
-              <NuxtLink :to="localePath('/')" class="hover:text-yellow-600 transition-colors text-gray-500 font-medium">
-                Beranda
-              </NuxtLink>
-              <span class="text-gray-400 font-medium">&gt;</span>
-
-              <!-- Conditional Detail Produk link if coming with product context -->
-              <template v-if="breadcrumbProduct">
-                <NuxtLink :to="localePath(`/product/${breadcrumbProductId}`)" class="hover:text-yellow-600 transition-colors text-gray-500 font-medium">
-                  Detail Produk
-                </NuxtLink>
-                <span class="text-gray-400 font-medium">&gt;</span>
-                <NuxtLink :to="localePath(`/product/${breadcrumbProductId}`)" class="hover:text-yellow-600 transition-colors text-gray-500 font-medium">
-                  {{ breadcrumbProduct }}
-                </NuxtLink>
-                <span class="text-gray-400 font-medium">&gt;</span>
-              </template>
-
-              <NuxtLink :to="localePath({ path: '/keranjang', query: route.query })" class="hover:text-yellow-600 transition-colors text-gray-500 font-medium">
-                Keranjang
-              </NuxtLink>
-              <span class="text-gray-400 font-medium">&gt;</span>
-
-              <span class="font-bold text-gray-900">Pemesanan</span>
-            </nav>
 
             <!-- Section 1: Dikirim Ke -->
             <div>
               <div class="mb-5">
-                <h1 class="text-xl sm:text-2xl font-semibold text-gray-900 tracking-tight">
+                <h1 class="text-xl sm:text-xl font-semibold text-gray-900 tracking-tight">
                   Dikirim Ke
                 </h1>
                 <p class="text-xs sm:text-sm text-gray-500 mt-1">
@@ -279,7 +282,7 @@
                 type="button"
                 :disabled="!isFormValid"
                 @click="handleSubmitOrder"
-                class="w-full py-3.5 sm:py-4 px-6 rounded-2xl text-center font-semibold text-sm sm:text-base transition-all duration-200 shadow-xs"
+                class="w-full py-3.5 sm:py-4 px-6 rounded-2xl text-center font-medium text-sm sm:text-base transition-all duration-200 shadow-xs"
                 :class="[
                   !isFormValid
                     ? 'bg-[#E5E5E5] text-gray-400 cursor-not-allowed shadow-none'
@@ -407,10 +410,16 @@
 import { ref, reactive, computed } from 'vue'
 import AppHeader from '~/components/layout/AppHeader.vue'
 import AppFooter from '~/components/layout/AppFooter.vue'
+import CheckoutSkeleton from '~/components/skeleton/CheckoutSkeleton.vue'
 import { useCart } from '~/composables/useCart'
+import { useCheckout } from '~/composables/useCheckout'
 
 const route = useRoute()
 const localePath = useLocalePath()
+const { saveOrder } = useCheckout()
+
+// Loading state for checkout page (ready for API / useAsyncData)
+const pending = ref(false)
 
 const {
   selectedItems,
@@ -499,7 +508,41 @@ const isFormValid = computed(() => {
 
 const handleSubmitOrder = () => {
   if (!isFormValid.value) return
-  alert(`Pesanan atas nama ${form.fullName} dengan total ${formatCurrency(totalPayment.value)} berhasil dikirim!`)
+
+  const fullAddress = [
+    form.address,
+    form.addressDetail,
+    form.city,
+    form.province,
+    form.postalCode
+  ].filter(Boolean).join(', ')
+
+  saveOrder({
+    customer: {
+      name: form.fullName,
+      phone: form.phone,
+      address: fullAddress,
+      addressDetail: form.addressDetail,
+      province: form.province,
+      city: form.city,
+      postalCode: form.postalCode,
+      email: form.email
+    },
+    items: selectedItems.value.map(item => ({
+      id: item.id,
+      name: item.name,
+      price: item.price,
+      quantity: item.quantity,
+      color: item.color,
+      size: item.size,
+      image: item.image
+    })),
+    subtotal: cartTotal.value,
+    paymentFee: paymentFee,
+    total: totalPayment.value
+  })
+
+  navigateTo(localePath('/pembayaran'))
 }
 
 const formatCurrency = (val: number) => {

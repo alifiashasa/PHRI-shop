@@ -17,34 +17,34 @@
           <NuxtLink
             :to="localePath('/')"
             class="px-5 py-2 rounded-xl transition-all duration-150 font-urbanist text-[16px]"
-            :class="activeMenu === 'beranda' ? 'bg-amber-400 text-white font-medium shadow-sm hover:bg-amber-500' : 'text-gray-700 hover:text-amber-500 hover:bg-amber-50'"
+            :class="activeMenu === 'beranda' ? 'bg-[#EABB08] text-white font-medium shadow-sm hover:bg-amber-500' : 'text-gray-700 hover:text-amber-500 hover:bg-amber-50'"
           >
             Beranda
           </NuxtLink>
 
           <!-- Tentang Kami -->
           <NuxtLink
-            to="#"
-            class="px-4 py-2 text-gray-800 hover:text-amber-500 transition-colors font-medium font-urbanist text-[16px]"
-            :class="{ 'text-amber-500 font-semibold': activeMenu === 'tentang-kami' }"
+            :to="localePath('/tentang-kami')"
+            class="px-5 py-2 rounded-xl transition-all duration-150 font-medium font-urbanist text-[16px]"
+            :class="activeMenu === 'tentang-kami' ? 'bg-[#EABB08] text-white font-medium shadow-sm hover:bg-amber-500' : 'text-gray-700 hover:text-amber-500 hover:bg-amber-50'"
           >
             Tentang Kami
           </NuxtLink>
 
           <!-- Kontak -->
           <NuxtLink
-            to="#"
-            class="px-4 py-2 text-gray-800 hover:text-amber-500 transition-colors font-medium font-urbanist text-[16px]"
-            :class="{ 'text-amber-500 font-semibold': activeMenu === 'kontak' }"
+            :to="localePath('/kontak')"
+            class="px-5 py-2 rounded-xl transition-all duration-150 font-urbanist text-[16px]"
+            :class="activeMenu === 'kontak' ? 'bg-[#EABB08] text-white font-medium shadow-sm hover:bg-amber-500' : 'text-gray-700 hover:text-amber-500 hover:bg-amber-50'"
           >
             Kontak
           </NuxtLink>
 
           <!-- Bantuan -->
           <NuxtLink
-            to="#"
-            class="px-4 py-2 text-gray-800 hover:text-amber-500 transition-colors font-medium font-urbanist text-[16px]"
-            :class="{ 'text-amber-500 font-semibold': activeMenu === 'bantuan' }"
+            :to="localePath('/bantuan')"
+            class="px-5 py-2 rounded-xl transition-all duration-150 font-urbanist text-[16px]"
+            :class="activeMenu === 'bantuan' ? 'bg-[#EABB08] text-white font-medium shadow-sm hover:bg-amber-500' : 'text-gray-700 hover:text-amber-500 hover:bg-amber-50'"
           >
             Bantuan
           </NuxtLink>
@@ -66,7 +66,12 @@
         <!-- Right Utilities -->
         <div class="flex items-center space-x-4 sm:space-x-6 font-urbanist">
           <!-- Cart Icon with Red Badge (using icon-cart.svg) -->
-          <NuxtLink :to="localePath('/keranjang')" class="relative p-1 transition-transform hover:scale-105" aria-label="Cart">
+          <NuxtLink
+            :to="localePath('/keranjang')"
+            class="relative p-1 transition-transform hover:scale-105"
+            :class="{ 'invisible pointer-events-none': !showCart }"
+            aria-label="Cart"
+          >
             <img
               src="/images/icon/icon-cart.svg"
               alt="Keranjang"
@@ -107,16 +112,16 @@
 
     <!-- Mobile Drawer -->
     <div v-if="isMobileMenuOpen" class="md:hidden border-t border-gray-100 bg-white px-4 pt-2 pb-6 space-y-2 font-urbanist text-[16px] font-medium">
-      <NuxtLink :to="localePath('/')" class="block px-4 py-2.5 rounded-xl bg-amber-400 text-white font-medium">
+      <NuxtLink :to="localePath('/')" class="block px-4 py-2.5 rounded-xl font-medium" :class="activeMenu === 'beranda' ? 'bg-amber-400 text-white' : 'text-gray-800 hover:bg-amber-50'">
         Beranda
       </NuxtLink>
-      <NuxtLink to="#" class="block px-4 py-2.5 rounded-xl text-gray-800 hover:bg-amber-50 font-medium">
+      <NuxtLink :to="localePath('/tentang-kami')" class="block px-4 py-2.5 rounded-xl font-medium" :class="activeMenu === 'tentang-kami' ? 'bg-[#EABB08] text-white' : 'text-gray-800 hover:bg-amber-50'">
         Tentang Kami
       </NuxtLink>
-      <NuxtLink to="#" class="block px-4 py-2.5 rounded-xl text-gray-800 hover:bg-amber-50 font-medium">
+      <NuxtLink :to="localePath('/kontak')" class="block px-4 py-2.5 rounded-xl font-medium" :class="activeMenu === 'kontak' ? 'bg-[#EABB08] text-white' : 'text-gray-800 hover:bg-amber-50'">
         Kontak
       </NuxtLink>
-      <NuxtLink to="#" class="block px-4 py-2.5 rounded-xl text-gray-800 hover:bg-amber-50 font-medium">
+      <NuxtLink :to="localePath('/bantuan')" class="block px-4 py-2.5 rounded-xl font-medium" :class="activeMenu === 'bantuan' ? 'bg-amber-400 text-white' : 'text-gray-800 hover:bg-amber-50'">
         Bantuan
       </NuxtLink>
     </div>
@@ -134,10 +139,12 @@ const props = withDefaults(
   defineProps<{
     activeMenu?: string
     variant?: 'default' | 'shop' | 'full'
+    showCart?: boolean
   }>(),
   {
     activeMenu: 'beranda',
-    variant: 'default'
+    variant: 'default',
+    showCart: true
   }
 )
 
