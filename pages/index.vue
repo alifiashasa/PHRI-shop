@@ -37,13 +37,11 @@
           </a>
         </div>
 
-        <!-- ONLY Hero Showcase Image is pulled higher up -->
-        <div class="w-full flex justify-center -mt-12 sm:-mt-20 md:-mt-28 px-0 pointer-events-none">
-          <img
-            src="/images/home/hero-section-beranda.svg"
-            alt="Hero Showcase PHRI Shop"
-            class="w-full h-auto max-h-[750px] object-cover sm:object-contain"
-          />
+        <!-- Hero Showcase Marquee (Straight aligned cards, continuous animation) -->
+        <div class="w-full mt-4 sm:mt-8">
+          <ClientOnly>
+            <HeroMarquee />
+          </ClientOnly>
         </div>
       </div>
     </section>
@@ -176,6 +174,7 @@
 import { ref } from 'vue'
 import AppHeader from '~/components/layout/AppHeader.vue'
 import AppFooter from '~/components/layout/AppFooter.vue'
+import HeroMarquee from '~/components/HeroMarquee.vue'
 import ProductCard from '~/components/product/ProductCard.vue'
 import ProductGallery from '~/components/product/ProductGallery.vue'
 import ProductVariantSelector from '~/components/product/ProductVariantSelector.vue'
