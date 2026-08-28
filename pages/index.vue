@@ -8,8 +8,8 @@
     <!-- Header / Navbar -->
     <AppHeader active-menu="beranda" variant="default" />
 
-    <!-- Hero Section (#FEFDE8, Full Screen Width, Min-h 913px) -->
-    <section class="relative bg-[#FEFDE8] w-full min-h-[913px] pt-16 pb-12 flex flex-col justify-between items-center overflow-hidden font-urbanist">
+    <!-- Hero Section (#FEFDE8, Full Screen Width, Min-h 913px on Desktop) -->
+    <section class="relative bg-[#FEFDE8] w-full min-h-0 lg:min-h-[913px] pt-8 sm:pt-16 pb-6 sm:pb-12 flex flex-col justify-between items-center overflow-hidden font-urbanist">
       <div class="w-full text-center flex flex-col items-center">
         <!-- Headline (Font Urbanist, 48px, #CE9404) -->
         <h2 class="text-2xl sm:text-3xl md:text-[48px] font-medium text-[#CE9404] tracking-tight font-urbanist leading-tight">
@@ -17,7 +17,7 @@
         </h2>
 
         <!-- Highlight (Font Syne, 48px) -->
-        <h1 class="text-2xl sm:text-3xl md:text-[48px] font-bold text-indigo-950 mt-6 mb-10 tracking-tight font-syne leading-tight">
+        <h1 class="text-2xl sm:text-3xl md:text-[48px] font-bold text-indigo-950 mt-3 sm:mt-6 mb-6 sm:mb-10 tracking-tight font-syne leading-tight">
           Hotel & Restoran Indonesia
         </h1>
 
@@ -46,8 +46,8 @@
       </div>
     </section>
 
-    <!-- Featured Product Section (Full Width Golden Yellow Section, Height 644px) -->
-    <section class="w-full bg-[#EAB308] min-h-[644px] py-8 lg:py-0 px-4 sm:px-8 lg:px-20 font-urbanist relative overflow-hidden flex items-center justify-center">
+    <!-- Featured Product Section (Full Width Golden Yellow Section, Height 644px on Desktop) -->
+    <section class="w-full bg-[#EAB308] min-h-0 lg:min-h-[644px] py-8 lg:py-0 px-4 sm:px-8 lg:px-20 font-urbanist relative overflow-hidden flex items-center justify-center">
       <!-- Left Carousel Navigation Button (<) -->
       <button
         @click="prevFeatured"

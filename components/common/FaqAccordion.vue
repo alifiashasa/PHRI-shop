@@ -10,9 +10,10 @@
         @click="toggleItem(index)"
         type="button"
         class="w-full flex items-center justify-between gap-4 text-left py-1.5 focus:outline-none cursor-pointer group select-none"
+        :class="itemPaddingClass"
         :aria-expanded="openIndexes.includes(index)"
       >
-        <span class="text-base sm:text-[18px] font-medium text-slate-900 group-hover:text-amber-600 transition-colors leading-snug">
+        <span :class="questionClass || 'text-[16px] font-medium text-[#0A0A0A] group-hover:text-amber-600 transition-colors leading-snug'">
           {{ item.question }}
         </span>
         <span class="shrink-0 p-1 text-gray-700 transition-transform duration-200" :class="{ 'rotate-180': openIndexes.includes(index) }">
@@ -31,7 +32,11 @@
         leave-from-class="max-h-[500px] opacity-100"
         leave-to-class="max-h-0 opacity-0"
       >
-        <div v-show="openIndexes.includes(index)" class="pt-2 pb-4 text-sm sm:text-[15px] text-[#757575] font-normal leading-relaxed pr-8">
+        <div
+          v-show="openIndexes.includes(index)"
+          class="pt-2 pb-4 text-sm sm:text-[15px] text-[#757575] font-normal leading-relaxed pr-8"
+          :class="itemPaddingClass"
+        >
           {{ item.answer }}
         </div>
       </Transition>
@@ -51,14 +56,18 @@ const props = withDefaults(
   defineProps<{
     items: FaqItem[]
     defaultOpenIndexes?: number[]
+    itemPaddingClass?: string
+    questionClass?: string
   }>(),
   {
     items: () => [],
-    defaultOpenIndexes: () => []
+    defaultOpenIndexes: () => [],
+    itemPaddingClass: '',
+    questionClass: ''
   }
 )
 
-const openIndexes = ref<number[]>([])
+const openIndexes = ref<number[]>(props.defaultOpenIndexes ? [...props.defaultOpenIndexes] : [])
 
 onMounted(() => {
   if (props.defaultOpenIndexes && props.defaultOpenIndexes.length > 0) {

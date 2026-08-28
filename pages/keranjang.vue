@@ -174,16 +174,16 @@
 
       <!-- Recommendation Section ("Rekomendasi Untuk di Beli") -->
       <section class="pt-8 border-t border-gray-200 mb-12">
-        <div class="flex items-center justify-between mb-6 sm:mb-8">
-          <h2 class="font-syne text-xl sm:text-2xl font-bold text-gray-900 tracking-tight">
+        <div class="flex items-center justify-between mb-6 sm:mb-8 gap-2">
+          <h2 class="font-syne text-base sm:text-2xl font-bold text-gray-900 tracking-tight">
             Rekomendasi Untuk di Beli
           </h2>
 
           <!-- Carousel Arrow Controls -->
-          <div class="flex items-center gap-2">
+          <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
             <button
               @click="prevRecommendation"
-              class="w-9 h-9 rounded-lg bg-[#EABB08] hover:bg-yellow-600 text-white flex items-center justify-center shadow-xs transition-all active:scale-95 cursor-pointer"
+              class="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-[#EABB08] hover:bg-yellow-600 text-white flex items-center justify-center shadow-xs transition-all active:scale-95 cursor-pointer"
               aria-label="Rekomendasi Sebelumnya"
             >
               <svg class="w-4 h-4 stroke-current" fill="none" viewBox="0 0 24 24">
@@ -192,7 +192,7 @@
             </button>
             <button
               @click="nextRecommendation"
-              class="w-9 h-9 rounded-lg bg-[#EABB08] hover:bg-yellow-600 text-white flex items-center justify-center shadow-xs transition-all active:scale-95 cursor-pointer"
+              class="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-[#EABB08] hover:bg-yellow-600 text-white flex items-center justify-center shadow-xs transition-all active:scale-95 cursor-pointer"
               aria-label="Rekomendasi Selanjutnya"
             >
               <svg class="w-4 h-4 stroke-current" fill="none" viewBox="0 0 24 24">

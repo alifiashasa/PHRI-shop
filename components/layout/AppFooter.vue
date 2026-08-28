@@ -90,9 +90,9 @@
         </div>
 
         <!-- Privacy Policy Link -->
-        <a href="#" class="text-[#EABB08] hover:opacity-80 font-urbanist font-medium text-[16px] transition-colors shrink-0 text-right">
+        <NuxtLink to="/kebijakan-privasi" class="text-[#EABB08] hover:opacity-80 font-urbanist font-medium text-[16px] transition-colors shrink-0 text-right">
           Kebijakan Privasi
-        </a>
+        </NuxtLink>
       </div>
     </div>
   </footer>

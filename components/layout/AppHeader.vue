@@ -80,11 +80,9 @@
             <ClientOnly>
               <span
                 v-if="cartCount > 0"
-                class="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-extrabold px-1 min-w-4 h-4 rounded-full flex items-center justify-center border border-white"
+                class="absolute -top-1.5 -right-1.5 bg-red-500 text-white text-[10px] font-extrabold leading-none min-w-[18px] h-[18px] px-1 rounded-full flex items-center justify-center pt-[1px] border border-white select-none"
                 :class="{ 'animate-cart-pop': isCartBadgeAnimating }"
-              >
-                {{ cartCount }}
-              </span>
+              >{{ cartCount }}</span>
             </ClientOnly>
           </NuxtLink>
 

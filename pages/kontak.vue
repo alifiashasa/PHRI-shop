@@ -70,7 +70,7 @@
       <section class="max-w-[1240px] mx-auto px-4 sm:px-8 lg:px-12 mb-16 sm:mb-20">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-stretch">
           <!-- Form Kontak (Left Column) -->
-          <div class="lg:col-span-6 bg-white flex flex-col justify-between">
+          <div class="lg:col-span-6 bg-white flex flex-col justify-between order-2 lg:order-1">
             <form @submit.prevent="handleSubmit" class="space-y-4 font-urbanist">
               <!-- Nama Lengkap -->
               <div>
@@ -168,8 +168,8 @@
             </form>
           </div>
 
-          <!-- Map Section (Right Column) -->
-          <div class="lg:col-span-6 min-h-[420px] lg:min-h-full rounded-2xl overflow-hidden border border-gray-200/80 shadow-xs relative bg-slate-100 flex flex-col justify-between">
+          <!-- Map Section (Right Column on Desktop, Top on Mobile) -->
+          <div class="lg:col-span-6 h-[220px] sm:h-[280px] lg:h-auto lg:min-h-full rounded-2xl overflow-hidden border border-gray-200/80 shadow-xs relative bg-slate-100 flex flex-col justify-between order-1 lg:order-2">
             <!-- Background Map Image (WebP Format) -->
             <img
               src="/images/kontak/maps.webp"

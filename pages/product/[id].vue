@@ -85,12 +85,12 @@
             <!-- 6. Add to Cart Button (Aligned with bottom of image) -->
             <button
               type="button"
-              :disabled="product.stock === 0"
+              :disabled="isAddToCartDisabled"
               @click="addToCart"
               class="w-full py-3.5 px-6 rounded-[10px] font-medium text-[16px] transition-all duration-200 shadow-sm flex items-center justify-center text-center"
               :class="[
-                product.stock === 0
-                  ? 'bg-gray-300 text-gray-500 cursor-not-allowed shadow-none'
+                isAddToCartDisabled
+                  ? 'bg-[#EDEDED] text-[#9E9E9E] cursor-not-allowed shadow-none'
                   : 'bg-[#EABB08] text-white hover:bg-yellow-600 active:scale-[0.99] cursor-pointer shadow-yellow-500/20 shadow-sm'
               ]"
             >
@@ -163,16 +163,16 @@
 
         <!-- Rekomendasi Untuk di Beli Section -->
         <section class="pt-8 border-t border-gray-200">
-          <div class="flex items-center justify-between mb-8">
-            <h2 class="font-syne text-xl sm:text-2xl font-bold text-gray-900 tracking-tight">
+          <div class="flex items-center justify-between mb-6 sm:mb-8 gap-2">
+            <h2 class="font-syne text-base sm:text-2xl font-bold text-gray-900 tracking-tight">
               Rekomendasi Untuk di Beli
             </h2>
 
             <!-- Carousel Navigation Arrows -->
-            <div class="flex items-center gap-2">
+            <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
               <button
                 @click="prevRecommendation"
-                class="w-9 h-9 rounded-[8px] bg-[#EABB08] hover:bg-yellow-600 text-white flex items-center justify-center shadow-xs transition-all active:scale-95 cursor-pointer"
+                class="w-8 h-8 sm:w-9 sm:h-9 rounded-[8px] bg-[#EABB08] hover:bg-yellow-600 text-white flex items-center justify-center shadow-xs transition-all active:scale-95 cursor-pointer"
                 aria-label="Previous recommendation"
               >
                 <svg class="w-4 h-4 stroke-current" fill="none" viewBox="0 0 24 24">
@@ -181,7 +181,7 @@
               </button>
               <button
                 @click="nextRecommendation"
-                class="w-9 h-9 rounded-[8px] bg-[#EABB08] hover:bg-yellow-600 text-white flex items-center justify-center shadow-xs transition-all active:scale-95 cursor-pointer"
+                class="w-8 h-8 sm:w-9 sm:h-9 rounded-[8px] bg-[#EABB08] hover:bg-yellow-600 text-white flex items-center justify-center shadow-xs transition-all active:scale-95 cursor-pointer"
                 aria-label="Next recommendation"
               >
                 <svg class="w-4 h-4 stroke-current" fill="none" viewBox="0 0 24 24">
@@ -272,20 +272,38 @@ const nextRecommendation = () => {
   // Recommendation carousel next logic
 }
 
-const addToCart = () => {
-  if (!product.value || product.value.stock === 0) return
-  if (!selectedSize.value || !selectedColor.value) {
-    alert('Harap pilih ukuran dan warna terlebih dahulu!')
-    return
+const isAddToCartDisabled = computed(() => {
+  if (!product.value || product.value.stock === 0) return true
+
+  const sizes = product.value.sizes && product.value.sizes.length ? product.value.sizes : defaultSizes
+  if (sizes && sizes.length > 0 && !selectedSize.value) {
+    return true
   }
+
+  const colors = product.value.colors && product.value.colors.length ? product.value.colors : defaultColors
+  if (colors && colors.length > 0 && !selectedColor.value) {
+    return true
+  }
+
+  return false
+})
+
+const addToCart = () => {
+  if (isAddToCartDisabled.value || !product.value) return
+
   cartAddToCart({
     productId: product.value.id,
     name: product.value.name,
     image: product.value.image,
-    color: selectedColor.value,
-    size: selectedSize.value,
+    color: selectedColor.value || 'Default',
+    size: selectedSize.value || 'Default',
     price: product.value.price,
     quantity: 1
+  })
+
+  showToast({
+    message: `${product.value.name} berhasil ditambahkan ke keranjang!`,
+    type: 'success'
   })
 }
 

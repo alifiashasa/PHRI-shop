@@ -21,7 +21,7 @@
       </section>
 
       <!-- Info Box Section (Container aligned with FAQ sections below: max-w-[1240px] px-4 sm:px-8 lg:px-12) -->
-      <section class="max-w-[1240px] mx-auto px-4 sm:px-8 lg:px-12 mt-16 sm:mt-16 mb-16 sm:mb-20">
+      <section class="max-w-[1240px] mx-auto px-4 sm:px-8 lg:px-12 mt-8 sm:mt-16 mb-8 sm:mb-20">
         <div class="bg-[#FEFDE8] border border-[#EABB08] rounded-xl sm:rounded-2xl p-5 sm:p-6 text-left flex flex-col gap-3 shadow-xs">
           <div class="flex items-center gap-2.5">
             <!-- Pin Icon from /images/icon/icon-pin.svg -->
@@ -41,7 +41,7 @@
       </section>
 
       <!-- Multiple FAQ Sections -->
-      <section class="max-w-[1240px] mx-auto px-4 sm:px-8 lg:px-12 space-y-10 sm:space-y-16 lg:space-y-18 mb-16 sm:mb-20">
+      <section class="max-w-[1240px] mx-auto px-4 sm:px-8 lg:px-12 space-y-10 sm:space-y-16 lg:space-y-18 mb-8 sm:mb-20">
         <div
           v-for="section in faqSections"
           :key="section.id"
@@ -68,19 +68,19 @@
       </section>
 
       <!-- Section "Masih ada pertanyaan lain?" -->
-      <section class="max-w-[1240px] mx-auto px-4 sm:px-8 lg:px-12 mb-16 sm:mb-20">
-        <div class="border border-gray-200/90 rounded-2xl p-6 sm:p-8 lg:p-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 bg-white shadow-xs">
-          <div class="space-y-1.5 max-w-2xl">
-            <h3 class="text-[24px] font-semibold text-slate-900 font-syne leading-tight">
+      <section class="max-w-[1240px] mx-auto px-4 sm:px-8 lg:px-12 mb-8 sm:mb-20">
+        <div class="border border-gray-200/90 rounded-2xl p-5 sm:p-8 lg:p-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 sm:gap-6 bg-white shadow-xs">
+          <div class="space-y-1 sm:space-y-1.5 max-w-2xl">
+            <h3 class="text-[20px] sm:text-[24px] font-semibold text-slate-900 font-syne leading-tight">
               Masih ada pertanyaan lain?
             </h3>
-            <p class="text-sm sm:text-base text-[#757575] font-urbanist leading-relaxed">
+            <p class="text-xs sm:text-base text-[#757575] font-urbanist leading-relaxed">
               Hubungi tim kami melalui live chat atau email, dan kami akan dengan senang hati membantu.
             </p>
           </div>
           <NuxtLink
             to="#"
-            class="w-full sm:w-auto px-8 py-3.5 bg-[#EAB308] hover:bg-amber-500 text-white font-medium font-urbanist text-base rounded-xl transition-all shadow-xs text-center whitespace-nowrap cursor-pointer shrink-0"
+            class="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-3.5 bg-[#EAB308] hover:bg-amber-500 text-white font-medium font-urbanist text-sm sm:text-base rounded-xl transition-all shadow-xs text-center whitespace-nowrap cursor-pointer shrink-0"
           >
             Hubungi Kami
           </NuxtLink>

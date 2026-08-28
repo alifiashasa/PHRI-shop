@@ -19,7 +19,7 @@
           class="h-[40px] px-3 rounded-[4px] text-[14px] font-normal transition-all flex items-center justify-center font-urbanist w-full"
           :class="[
             isSizeDisabled(size)
-              ? 'bg-[#EDEDED] text-[#B8B8B8] border border-transparent cursor-not-allowed font-normal'
+              ? 'bg-[#EDEDED] text-[#9E9E9E] border border-transparent cursor-not-allowed font-normal'
               : selectedSize === size
                 ? 'bg-white border-2 border-[#EABB08] text-[#EABB08] font-normal shadow-xs'
                 : 'bg-white text-[#0A0A0A] border border-gray-200 hover:border-gray-300 font-normal'
@@ -46,7 +46,7 @@
           class="h-[40px] px-3 rounded-[4px] text-[14px] font-normal transition-all flex items-center justify-center font-urbanist w-full"
           :class="[
             isColorDisabled(color)
-              ? 'bg-[#EDEDED] text-[#B8B8B8] border border-transparent cursor-not-allowed font-normal'
+              ? 'bg-[#EDEDED] text-[#9E9E9E] border border-transparent cursor-not-allowed font-normal'
               : selectedColor === color
                 ? 'bg-white border-2 border-[#EABB08] text-[#EABB08] font-normal shadow-xs'
                 : 'bg-white text-[#0A0A0A] border border-gray-200 hover:border-gray-300 font-normal'
@@ -96,6 +96,29 @@ const isColorDisabled = (color: string) => {
   return props.disabledColors ? props.disabledColors.includes(color) : false
 }
 
+// Auto select option if only 1 available option exists
+const checkAutoSelect = () => {
+  if (props.sizes && props.sizes.length > 0) {
+    const availableSizes = props.sizes.filter(s => !isSizeDisabled(s))
+    if (availableSizes.length === 1 && !selectedSize.value) {
+      selectedSize.value = availableSizes[0]
+      emit('update:modelValueSize', availableSizes[0])
+    }
+  }
+
+  if (props.colors && props.colors.length > 0) {
+    const availableColors = props.colors.filter(c => !isColorDisabled(c))
+    if (availableColors.length === 1 && !selectedColor.value) {
+      selectedColor.value = availableColors[0]
+      emit('update:modelValueColor', availableColors[0])
+    }
+  }
+}
+
+onMounted(() => {
+  checkAutoSelect()
+})
+
 const selectSize = (size: string) => {
   if (!isSizeDisabled(size)) {
     selectedSize.value = size
@@ -124,5 +147,12 @@ watch(
   (newVal) => {
     selectedColor.value = newVal ?? null
   }
+)
+watch(
+  () => [props.sizes, props.colors, props.disabledSizes, props.disabledColors],
+  () => {
+    checkAutoSelect()
+  },
+  { deep: true }
 )
 </script>

@@ -8,7 +8,7 @@
       <!-- Invoice Container Paper -->
       <div class="w-full max-w-[976px] bg-white rounded-2xl sm:rounded-3xl shadow-sm border border-gray-200/70 overflow-hidden my-auto">
         <!-- Main Invoice Content -->
-        <div class="p-6 sm:p-12 space-y-8">
+        <div class="p-4 sm:p-12 space-y-6 sm:space-y-8">
           
           <!-- 1. Header Invoice (Logo PHRI Left | PHRI SHOP Right) -->
           <div class="flex items-center justify-between pb-6 border-b border-gray-100">
@@ -16,39 +16,39 @@
               <img
                 src="/images/logo/Rectangle.svg"
                 alt="PHRI Logo"
-                class="h-12 sm:h-14 w-auto object-contain"
+                class="h-10 sm:h-14 w-auto object-contain"
               />
             </NuxtLink>
-            <span class="font-bold text-lg sm:text-xl tracking-wider text-gray-900 font-syne">
+            <span class="font-bold text-base sm:text-xl tracking-wider text-gray-900 font-syne">
               PHRI SHOP
             </span>
           </div>
 
           <!-- 2. Greeting & Title / Header Content -->
           <div class="text-center space-y-3 pt-2">
-            <h1 class="text-[24px] font-medium text-gray-900 font-syne">
+            <h1 class="text-xl sm:text-[24px] font-medium text-gray-900 font-syne">
               Hi {{ order.customer.name }},
             </h1>
 
             <!-- Dynamic Header Subtitle based on status -->
-            <h2 v-if="currentStatus === 'pending'" class="text-[24px] font-medium text-gray-900 font-syne w-full max-w-none mx-auto leading-snug">
+            <h2 v-if="currentStatus === 'pending'" class="text-lg sm:text-[24px] font-medium text-gray-900 font-syne w-full max-w-none mx-auto leading-snug">
               Selamat Pesanan Anda Berhasil Dibuat, Mohon Segera Selesaikan Pembayaran!
             </h2>
-            <h2 v-else-if="currentStatus === 'expired'" class="text-[24px] font-medium text-gray-900 font-syne w-full max-w-none mx-auto leading-snug">
+            <h2 v-else-if="currentStatus === 'expired'" class="text-lg sm:text-[24px] font-medium text-gray-900 font-syne w-full max-w-none mx-auto leading-snug">
               Pembayaran Anda Telah Kadaluwarsa
             </h2>
-            <h2 v-else-if="currentStatus === 'success'" class="text-[24px] font-medium text-gray-900 font-syne w-full max-w-none mx-auto leading-snug">
+            <h2 v-else-if="currentStatus === 'success'" class="text-lg sm:text-[24px] font-medium text-gray-900 font-syne w-full max-w-none mx-auto leading-snug">
               Pembayaran Telah Berhasil
             </h2>
 
             <!-- Dynamic Description Paragraph based on status -->
-            <p v-if="currentStatus === 'pending'" class="text-xs sm:text-[14px] text-[#757575] font-urbanist w-full max-w-none mx-auto leading-relaxed pt-4">
+            <p v-if="currentStatus === 'pending'" class="text-xs sm:text-[14px] text-[#757575] font-urbanist w-full max-w-none mx-auto leading-relaxed pt-2 sm:pt-4">
               Hai, tagihan atas pesanan barang Anda di PHRI Shop telah dibuat ({{ order.createdAt }}). Pembayaran wajib diselesaikan untuk mengonfirmasi kepemilikan barang yang telah Anda buat.
             </p>
-            <p v-else-if="currentStatus === 'expired'" class="text-xs sm:text-[14px] text-[#757575] font-urbanist w-full max-w-[720px] mx-auto leading-relaxed pt-3">
+            <p v-else-if="currentStatus === 'expired'" class="text-xs sm:text-[14px] text-[#757575] font-urbanist w-full max-w-[720px] mx-auto leading-relaxed pt-2 sm:pt-3">
               Invoice untuk pesanan Anda telah kedaluwarsa karena belum dilakukan pembayaran hingga batas waktu yang ditetapkan. Anda dapat dengan mudah melakukan pemesanan ulang dengan klik tombol di bawah ini.
             </p>
-            <p v-else-if="currentStatus === 'success'" class="text-xs sm:text-[14px] text-[#757575] font-urbanist w-full max-w-[720px] mx-auto leading-relaxed pt-4">
+            <p v-else-if="currentStatus === 'success'" class="text-xs sm:text-[14px] text-[#757575] font-urbanist w-full max-w-[720px] mx-auto leading-relaxed pt-2 sm:pt-4">
               Pembayaran Anda untuk pesanan telah berhasil kami terima pada ({{ paidAtDisplay }}). Terima kasih telah mempercayai kami. Pesanan Anda sekarang telah dikonfirmasi dan sedang diproses.
             </p>
 
@@ -58,7 +58,7 @@
               <span class="text-xs sm:text-sm text-[#757575] font-medium block">
                 Jumlah yang Harus Dibayarkan
               </span>
-              <div class="text-3xl sm:text-4xl font-medium text-gray-900 font-urbanist tracking-tight">
+              <div class="text-2xl sm:text-4xl font-medium text-gray-900 font-urbanist tracking-tight">
                 {{ formatCurrency(order.total) }}
               </div>
               <p class="text-xs sm:text-sm text-danger font-medium pt-1">
@@ -92,7 +92,7 @@
 
           <!-- 4. Detail Transaksi Header -->
           <div class="pt-4 space-y-1.5 text-left text-xs sm:text-sm text-[#757575]">
-            <h3 class="text-[#111827] text-xs sm:text-sm mb-2">
+            <h3 class="text-[#111827] text-xs sm:text-sm mb-2 font-medium sm:font-normal">
               Detail Transaksi:
             </h3>
             <p>
@@ -119,7 +119,7 @@
 
           <!-- 5. Informasi Pengiriman (Only on status success) -->
           <div v-if="currentStatus === 'success'" class="pt-2 space-y-1.5 text-left text-xs sm:text-sm text-[#757575]">
-            <h3 class="text-[#111827] text-xs sm:text-sm mb-2">
+            <h3 class="text-[#111827] text-xs sm:text-sm mb-2 font-medium sm:font-normal">
               Informasi Pengiriman
             </h3>
             <p>
@@ -135,20 +135,27 @@
             <div
               v-for="item in order.items"
               :key="item.id"
-              class="flex items-center justify-between gap-6 sm:gap-12 text-xs sm:text-sm text-gray-800 font-urbanist"
+              class="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 sm:gap-12 text-xs sm:text-sm text-gray-800 font-urbanist pb-3 sm:pb-0 border-b sm:border-b-0 border-gray-100 last:border-b-0"
             >
-              <span class="font-medium text-gray-900 flex-1 truncate pr-2">
+              <!-- Product Name -->
+              <span class="font-medium text-gray-900 flex-1 sm:truncate sm:pr-2">
                 {{ item.name }}
               </span>
-              <span class="text-[#757575] w-16 sm:w-24 text-center shrink-0">
-                {{ item.quantity }}
-              </span>
-              <span class="text-[#757575] w-28 sm:w-36 text-right shrink-0">
-                {{ formatCurrency(item.price) }}
-              </span>
-              <span class="text-[#757575] w-32 sm:w-40 text-right shrink-0">
-                {{ formatCurrency(item.price * item.quantity) }}
-              </span>
+
+              <!-- Quantity, Unit Price, Total -->
+              <div class="flex items-center justify-between sm:justify-end gap-2 sm:gap-12 shrink-0 text-[#757575]">
+                <div class="flex items-center gap-3 sm:gap-0">
+                  <span class="sm:w-24 sm:text-center shrink-0">
+                    {{ item.quantity }}
+                  </span>
+                  <span class="sm:w-36 sm:text-right shrink-0">
+                    {{ formatCurrency(item.price) }}
+                  </span>
+                </div>
+                <span class="font-medium sm:font-normal text-gray-900 sm:text-[#757575] sm:w-40 text-right shrink-0">
+                  {{ formatCurrency(item.price * item.quantity) }}
+                </span>
+              </div>
             </div>
 
             <hr class="border-gray-200/80 my-4" />
@@ -156,21 +163,21 @@
             <!-- Subtotal / Payment Fee & Total -->
             <div class="space-y-3 pt-2 font-urbanist">
               <!-- Biaya Pembayaran -->
-              <div class="flex items-center justify-between gap-6 sm:gap-12 text-[#111827]">
-                <span class="flex-1 text-right font-medium text-sm sm:text-base pr-[176px] sm:pr-[232px]">
+              <div class="flex items-center justify-between gap-4 sm:gap-12 text-[#111827]">
+                <span class="flex-1 text-left sm:text-right font-medium text-xs sm:text-base pr-0 sm:pr-[195px]">
                   Biaya Pembayaran
                 </span>
-                <span class="w-32 sm:w-40 text-right font-semibold text-base sm:text-lg shrink-0">
+                <span class="sm:w-40 text-right font-semibold text-xs sm:text-lg shrink-0">
                   {{ formatCurrency(order.paymentFee) }}
                 </span>
               </div>
 
               <!-- Total -->
-              <div class="flex items-center justify-between gap-6 sm:gap-12 text-[#111827]">
-                <span class="flex-1 text-right font-medium text-sm sm:text-base pr-[176px] sm:pr-[232px]">
+              <div class="flex items-center justify-between gap-4 sm:gap-12 text-[#111827]">
+                <span class="flex-1 text-left sm:text-right font-medium text-sm sm:text-base pr-0 sm:pr-[195px]">
                   Total
                 </span>
-                <span class="w-32 sm:w-40 text-right font-semibold text-lg sm:text-2xl shrink-0">
+                <span class="sm:w-40 text-right font-semibold text-base sm:text-2xl shrink-0">
                   {{ formatCurrency(order.total) }}
                 </span>
               </div>
