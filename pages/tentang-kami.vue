@@ -136,7 +136,7 @@
       </section>
 
       <!-- 4. Section "Our Core Values" -->
-      <section class="max-w-[1240px] mx-auto px-4 sm:px-8 lg:px-12 py-16 sm:py-24">
+      <section class="max-w-[1240px] mx-auto px-4 sm:px-8 lg:px-12 pt-12 pb-6 sm:py-24">
         <!-- Section Header (Centered) -->
         <div class="text-center mb-12 sm:mb-16 max-w-3xl mx-auto">
           <h2 class="text-2xl sm:text-3xl lg:text-[22px] font-medium text-gray-900 font-inter tracking-tight mb-1">

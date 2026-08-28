@@ -68,7 +68,7 @@
       </section>
 
       <!-- Section "Masih ada pertanyaan lain?" -->
-      <section class="max-w-[1240px] mx-auto px-4 sm:px-8 lg:px-12 mb-8 sm:mb-20">
+      <section class="max-w-[1240px] mx-auto px-4 sm:px-8 lg:px-12 mb-2 sm:mb-20">
         <div class="border border-gray-200/90 rounded-2xl p-5 sm:p-8 lg:p-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 sm:gap-6 bg-white shadow-xs">
           <div class="space-y-1 sm:space-y-1.5 max-w-2xl">
             <h3 class="text-[20px] sm:text-[24px] font-semibold text-slate-900 font-syne leading-tight">

@@ -173,7 +173,7 @@
       </ClientOnly>
 
       <!-- Recommendation Section ("Rekomendasi Untuk di Beli") -->
-      <section class="pt-8 border-t border-gray-200 mb-12">
+      <section class="pt-8 border-t border-gray-200 mb-2 sm:mb-12">
         <div class="flex items-center justify-between mb-6 sm:mb-8 gap-2">
           <h2 class="font-syne text-base sm:text-2xl font-bold text-gray-900 tracking-tight">
             Rekomendasi Untuk di Beli

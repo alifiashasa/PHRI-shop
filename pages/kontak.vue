@@ -67,7 +67,7 @@
       </section>
 
       <!-- Section Form & Map (2 Columns on Desktop) -->
-      <section class="max-w-[1240px] mx-auto px-4 sm:px-8 lg:px-12 mb-16 sm:mb-20">
+      <section class="max-w-[1240px] mx-auto px-4 sm:px-8 lg:px-12 mb-6 sm:mb-20">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-stretch">
           <!-- Form Kontak (Left Column) -->
           <div class="lg:col-span-6 bg-white flex flex-col justify-between order-2 lg:order-1">

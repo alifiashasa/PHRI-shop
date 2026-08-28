@@ -9,7 +9,7 @@
     <AppHeader />
 
     <main class="flex-grow w-full">
-      <div class="max-w-[1216px] mx-auto px-4 sm:px-6 lg:px-8 pt-10 sm:pt-14 md:pt-16 pb-16 sm:pb-24">
+      <div class="max-w-[1216px] mx-auto px-4 sm:px-6 lg:px-8 pt-10 sm:pt-14 md:pt-16 pb-6 sm:pb-24">
         <!-- Title: Privacy & Policy (Centered) -->
         <h1 class="text-2xl sm:text-[32px] md:text-[36px] font-semibold text-slate-900 font-syne text-center mb-8 sm:mb-10 tracking-tight leading-tight">
           Privacy & Policy

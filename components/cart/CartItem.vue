@@ -1,9 +1,9 @@
 <template>
-  <div class="flex flex-col sm:flex-row items-start justify-between gap-4 py-4 sm:py-6 border-b border-gray-100 last:border-b-0 font-urbanist">
-    <!-- Left Group: Checkbox + Product Image + Info -->
-    <div class="flex items-start gap-3 sm:gap-4 w-full sm:w-auto flex-1">
+  <div class="py-4 sm:py-6 border-b border-gray-100 last:border-b-0 font-urbanist">
+    <!-- Main Item Row -->
+    <div class="flex items-start gap-3 sm:gap-4">
       <!-- Custom Styled Checkbox -->
-      <div class="pt-2 sm:pt-4 shrink-0">
+      <div class="pt-1 sm:pt-2 shrink-0">
         <label class="relative flex items-center justify-center cursor-pointer select-none">
           <input
             type="checkbox"
@@ -41,30 +41,25 @@
         />
       </div>
 
-      <!-- Product Details & Mobile Delete -->
-      <div class="flex-1 flex flex-col justify-between min-h-[80px] sm:min-h-[112px]">
+      <!-- Product Info -->
+      <div class="flex-1 min-w-0 flex flex-col justify-between self-stretch">
         <div>
-          <!-- Desktop Title & Hapus -->
-          <div class="flex items-start justify-between gap-2">
-            <h3 class="text-sm sm:text-[17px] font-semibold text-gray-900 line-clamp-2 leading-snug">
-              {{ item.name }}
-            </h3>
-            <!-- Mobile Hapus button (visible on mobile only) -->
-            <button
-              type="button"
-              @click="$emit('delete', item.id)"
-              class="sm:hidden text-xs text-gray-400 hover:text-red-500 font-medium shrink-0 cursor-pointer"
-            >
-              Hapus
-            </button>
-          </div>
+          <h3 class="text-sm sm:text-[17px] font-bold text-gray-900 line-clamp-2 leading-snug">
+            {{ item.name }}
+          </h3>
 
           <!-- Color & Size -->
-          <p class="text-xs sm:text-[13px] text-[#0A0A0A] font-semibold mt-1 flex flex-wrap items-center gap-1.5">
-            <span>Warna: <strong class="font-medium text-[#757575]">{{ item.color }}</strong></span>
+          <p class="text-xs sm:text-[13px] text-gray-900 font-semibold mt-0.5 flex flex-wrap items-center gap-1.5">
+            <span>Warna: <strong class="font-normal text-[#757575]">{{ item.color }}</strong></span>
             <span class="text-gray-300">•</span>
-            <span>Ukuran: <strong class="font-medium text-[#757575]">{{ item.size }}</strong></span>
+            <span>Ukuran: <strong class="font-normal text-[#757575]">{{ item.size }}</strong></span>
           </p>
+
+          <!-- Edit & Hapus links -->
+          <div class="flex items-center gap-2.5 text-xs mt-1 font-medium">
+            <button type="button" class="text-amber-500 hover:text-amber-600 font-semibold cursor-pointer">Edit</button>
+            <button type="button" @click="$emit('delete', item.id)" class="text-gray-700 hover:text-red-500 cursor-pointer">Hapus</button>
+          </div>
         </div>
 
         <!-- Price -->
@@ -72,42 +67,72 @@
           {{ formatCurrency(item.price) }}
         </div>
       </div>
+
+      <!-- Right Side Column for Desktop -->
+      <div class="hidden sm:flex flex-col items-end justify-between self-stretch shrink-0">
+        <!-- Desktop Hapus button -->
+        <button
+          type="button"
+          @click="$emit('delete', item.id)"
+          class="text-xs sm:text-[14px] text-gray-800 hover:text-red-500 font-medium transition-colors cursor-pointer"
+        >
+          Hapus
+        </button>
+
+        <!-- Desktop Quantity Stepper (Pill style) -->
+        <div class="mt-8 flex items-center justify-between w-[115px] sm:w-[125px] h-[40px] sm:h-[44px] border border-gray-200 rounded-full bg-white px-3.5 shadow-2xs">
+          <button
+            type="button"
+            @click="decrease"
+            :disabled="item.quantity <= 1"
+            class="w-6 h-6 flex items-center justify-center text-gray-700 disabled:text-gray-300 hover:text-amber-500 transition-colors cursor-pointer select-none"
+            aria-label="Kurangi kuantitas"
+          >
+            <svg class="w-4 h-4 stroke-[2.5]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M20 12H4" />
+            </svg>
+          </button>
+          <span class="text-base sm:text-[18px] font-bold text-gray-900 select-none">
+            {{ item.quantity }}
+          </span>
+          <button
+            type="button"
+            @click="increase"
+            class="w-6 h-6 flex items-center justify-center text-gray-700 hover:text-amber-500 transition-colors cursor-pointer select-none"
+            aria-label="Tambah kuantitas"
+          >
+            <svg class="w-4 h-4 stroke-[2.5]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+            </svg>
+          </button>
+        </div>
+      </div>
     </div>
 
-    <!-- Right Group: Hapus (Desktop) + Quantity Control -->
-    <div class="flex sm:flex-col items-center sm:items-end justify-between w-full sm:w-auto mt-2 sm:mt-0 pt-2 sm:pt-0 border-t sm:border-t-0 border-gray-50">
-      <!-- Desktop Hapus button -->
-      <button
-        type="button"
-        @click="$emit('delete', item.id)"
-        class="hidden sm:block text-xs sm:text-[14px] text-[#0A0A0A] hover:text-red-500 font-medium transition-colors cursor-pointer"
-      >
-        Hapus
-      </button>
-
-      <!-- Quantity Selector (Figma style) -->
-      <div class="sm:mt-8 flex items-center justify-between w-[115px] sm:w-[125px] h-[40px] sm:h-[44px] border border-[#E5E7EB] rounded-[14px] bg-white px-3 shadow-2xs">
+    <!-- Mobile Quantity Stepper Row (Positioned on the Right!) -->
+    <div class="flex justify-end sm:hidden mt-2">
+      <div class="flex items-center justify-between w-[105px] h-[36px] border border-gray-200/90 rounded-full bg-white px-3 shadow-2xs">
         <button
           type="button"
           @click="decrease"
           :disabled="item.quantity <= 1"
-          class="w-7 h-7 flex items-center justify-center text-gray-800 disabled:text-gray-300 hover:text-amber-500 disabled:hover:text-gray-300 transition-colors cursor-pointer select-none"
+          class="w-6 h-6 flex items-center justify-center text-gray-700 disabled:text-gray-300 hover:text-amber-500 transition-colors cursor-pointer select-none"
           aria-label="Kurangi kuantitas"
         >
-          <svg class="w-4 h-4 stroke-[2.5]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg class="w-3.5 h-3.5 stroke-[2.5]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="M20 12H4" />
           </svg>
         </button>
-        <span class="text-base sm:text-[18px] font-bold text-gray-900 select-none">
+        <span class="text-sm font-bold text-gray-900 select-none">
           {{ item.quantity }}
         </span>
         <button
           type="button"
           @click="increase"
-          class="w-7 h-7 flex items-center justify-center text-gray-800 hover:text-amber-500 transition-colors cursor-pointer select-none"
+          class="w-6 h-6 flex items-center justify-center text-gray-700 hover:text-amber-500 transition-colors cursor-pointer select-none"
           aria-label="Tambah kuantitas"
         >
-          <svg class="w-4 h-4 stroke-[2.5]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg class="w-3.5 h-3.5 stroke-[2.5]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
           </svg>
         </button>

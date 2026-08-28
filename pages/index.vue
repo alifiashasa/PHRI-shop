@@ -148,7 +148,7 @@
     </section>
 
     <!-- Produk Kami Section -->
-    <section id="produk-kami" class="py-12 px-4 sm:px-8 lg:px-12 max-w-[1440px] mx-auto w-full scroll-mt-20">
+    <section id="produk-kami" class="pt-8 pb-2 sm:py-12 px-4 sm:px-8 lg:px-12 max-w-[1440px] mx-auto w-full scroll-mt-20">
       <div class="flex items-center justify-between mb-8">
         <h2 class="font-syne text-[32px] font-semibold text-gray-900">
           Produk Kami

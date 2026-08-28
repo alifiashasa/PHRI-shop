@@ -42,9 +42,9 @@
         <CheckoutSkeleton v-if="pending" />
 
         <!-- Loaded Content State -->
-        <div v-else class="grid grid-cols-1 lg:grid-cols-[minmax(0,2fr)_minmax(340px,1fr)] gap-6 lg:gap-8 items-start mb-16">
-          <!-- Left Column: Shipping & Contact Form -->
-          <div class="space-y-6 sm:space-y-8">
+        <div v-else class="grid grid-cols-1 lg:grid-cols-[minmax(0,2fr)_minmax(340px,1fr)] gap-6 lg:gap-8 items-start mb-2 sm:mb-16">
+          <!-- Left Column: Shipping & Contact Form (order-2 on mobile, order-1 on desktop) -->
+          <div class="order-2 lg:order-1 space-y-6 sm:space-y-8">
 
             <!-- Section 1: Dikirim Ke -->
             <div>
@@ -295,9 +295,53 @@
 
           </div>
 
-          <!-- Right Column: Summary Card -->
-          <div class="bg-white rounded-2xl border border-gray-200/90 p-5 sm:p-6 space-y-4 shadow-xs">
-            <!-- Card Header -->
+          <!-- Right Column: Summary Card (order-1 on mobile, order-2 on desktop) -->
+          <div class="order-1 lg:order-2 bg-white rounded-2xl border border-gray-200/90 p-5 sm:p-6 space-y-4 shadow-xs">
+
+            <!-- "Di Keranjang" Preview Section (Top of summary card) -->
+            <div>
+              <h3 class="text-xs sm:text-sm font-bold text-gray-900 mb-3">
+                Di Keranjang
+              </h3>
+
+              <div v-if="selectedItems.length > 0" class="space-y-3 max-h-[300px] overflow-y-auto pr-1">
+                <div
+                  v-for="item in selectedItems"
+                  :key="item.id"
+                  class="flex items-center gap-3 p-2 rounded-xl bg-gray-50/70 border border-gray-100"
+                >
+                  <img
+                    :src="item.image"
+                    :alt="item.name"
+                    class="w-16 h-16 sm:w-20 sm:h-20 object-cover rounded-lg bg-gray-100 shrink-0"
+                  />
+                  <div class="flex-1 min-w-0">
+                    <h4 class="font-bold text-xs sm:text-sm text-gray-900 truncate">
+                      {{ item.name }}
+                    </h4>
+                    <p class="text-[11px] sm:text-xs text-gray-500 mt-0.5">
+                      Warna: <span class="font-medium text-gray-700">{{ item.color }}</span>
+                      <span class="mx-1">•</span>
+                      Ukuran: <span class="font-medium text-gray-700">{{ item.size }}</span>
+                    </p>
+                    <p class="text-[11px] sm:text-xs text-gray-500 mt-0.5">
+                      Qty: <span class="font-medium text-gray-700">{{ item.quantity }}</span>
+                    </p>
+                    <p class="font-bold text-xs sm:text-sm text-gray-900 mt-1">
+                      {{ formatCurrency(item.price) }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div v-else class="text-xs text-gray-400 text-center py-4 bg-gray-50 rounded-xl">
+                Tidak ada produk di keranjang yang dipesan.
+              </div>
+            </div>
+
+            <hr class="border-gray-100 my-3" />
+
+            <!-- Card Header: Ringkasan Pembelian -->
             <div class="flex items-center justify-between pb-3 border-b border-gray-100">
               <h2 class="text-base sm:text-[18px] font-semibold text-gray-900">
                 Ringkasan Pembelian
@@ -348,52 +392,12 @@
               </span>
             </div>
 
-            <!-- "Di Keranjang" Preview Section -->
-            <div class="pt-4 border-t border-gray-100">
-              <h3 class="text-xs sm:text-sm font-bold text-gray-900 mb-3">
-                Di Keranjang
-              </h3>
-
-              <div v-if="selectedItems.length > 0" class="space-y-3 max-h-[300px] overflow-y-auto pr-1">
-                <div
-                  v-for="item in selectedItems"
-                  :key="item.id"
-                  class="flex items-center gap-3 p-2 rounded-xl bg-gray-50/70 border border-gray-100"
-                >
-                  <img
-                    :src="item.image"
-                    :alt="item.name"
-                    class="w-16 h-16 sm:w-20 sm:h-20 object-cover rounded-lg bg-gray-100 shrink-0"
-                  />
-                  <div class="flex-1 min-w-0">
-                    <h4 class="font-bold text-xs sm:text-sm text-gray-900 truncate">
-                      {{ item.name }}
-                    </h4>
-                    <p class="text-[11px] sm:text-xs text-gray-500 mt-0.5">
-                      Warna: <span class="font-medium text-gray-700">{{ item.color }}</span>
-                      <span class="mx-1">•</span>
-                      Ukuran: <span class="font-medium text-gray-700">{{ item.size }}</span>
-                      <span class="mx-1">•</span>
-                      Qty: <span class="font-medium text-gray-700">{{ item.quantity }}</span>
-                    </p>
-                    <p class="font-bold text-xs sm:text-sm text-gray-900 mt-1">
-                      {{ formatCurrency(item.price) }}
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div v-else class="text-xs text-gray-400 text-center py-4 bg-gray-50 rounded-xl">
-                Tidak ada produk di keranjang yang dipesan.
-              </div>
-            </div>
-
             <!-- Help Section -->
             <div class="pt-3 border-t border-gray-100 text-center text-xs text-gray-500 flex items-center justify-center gap-1.5 flex-wrap font-medium">
               <span>Butuh Bantuan?</span>
-              <a href="#" class="text-gray-700 hover:text-amber-600 underline transition-colors">Hubungi Kami</a>
+              <NuxtLink :to="localePath('/bantuan')" class="text-gray-700 hover:text-amber-600 underline transition-colors">Hubungi Kami</NuxtLink>
               <span class="text-gray-300">|</span>
-              <a href="#" class="text-gray-700 hover:text-amber-600 underline transition-colors">Informasi Pengiriman</a>
+              <NuxtLink :to="localePath('/bantuan')" class="text-gray-700 hover:text-amber-600 underline transition-colors">Informasi Pengiriman</NuxtLink>
             </div>
           </div>
 

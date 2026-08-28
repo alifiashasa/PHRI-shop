@@ -1,5 +1,5 @@
 <template>
-  <footer class="w-full font-sans mt-16">
+  <footer class="w-full font-sans mt-3 sm:mt-16">
     <!-- Top Yellow Banner with Social Links & Back To Top -->
     <div class="relative overflow-hidden bg-[#E5AD00] py-6 px-4 sm:px-8 lg:px-12">
       <!-- Low-Poly Geometric Background Pattern -->
